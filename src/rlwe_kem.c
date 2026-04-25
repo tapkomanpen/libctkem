@@ -16,6 +16,7 @@
  */
 
 #include "rlwe_kem.h"
+#include "randombytes.h"
 
 #include <stdio.h>
 #include <string.h>
