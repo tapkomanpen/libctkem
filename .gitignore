@@ -1,0 +1,10 @@
+rlwe_kem
+bench_pqclean
+test_clean
+*.o
+*.a
+*.so
+*.txt
+*.log
+.DS_Store
+.history
