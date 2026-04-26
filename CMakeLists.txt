@@ -4,7 +4,7 @@ project(libctkem VERSION 2.0.0 LANGUAGES C ASM)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
-include_directories(include)
+include_directories(include src)
 
 if(NOT DEFINED ARCH)
     execute_process(COMMAND uname -m OUTPUT_VARIABLE ARCH OUTPUT_STRIP_TRAILING_WHITESPACE)
@@ -16,7 +16,7 @@ set(CTKEM_SOURCES
 )
 
 if(ARCH MATCHES "aarch64")
-    list(APPEND CTKEM_SOURCES asm/ntt_arm64.S)
+    list(APPEND CTKEM_SOURCES asm/arm64/ntt_arm64.S)
 else()
     list(APPEND CTKEM_SOURCES ref/ntt_ref.c)
     add_compile_definitions(RLWE_NO_ASM)
@@ -32,9 +32,6 @@ else()
 endif()
 
 add_library(ctkem STATIC ${CTKEM_SOURCES})
-
-add_executable(ctkem_bench tests/bench.c)
-target_link_libraries(ctkem_bench PRIVATE ctkem)
 
 install(TARGETS ctkem
     EXPORT ctkemTargets
