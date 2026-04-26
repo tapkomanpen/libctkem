@@ -47,6 +47,7 @@
 #include "sha3.h"      /* optimized SHA3 with unrolled keccak */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
 
