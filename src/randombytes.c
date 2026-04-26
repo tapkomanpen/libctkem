@@ -16,6 +16,7 @@
  */
 
 #include "randombytes.h"
+#include <sys/random.h>
 #include <string.h>
 
 /* ── Platform detection ───────────────────────────────────── */
