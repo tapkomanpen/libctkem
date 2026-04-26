@@ -1,11 +1,17 @@
 /*
  * ============================================================
- * randombytes.h  —  Entropy Source Interface
+ *  randombytes.h  —  Entropy Source Interface  (v2)
  *
- * This header defines the interface for the system's
- * cryptographically secure random number generator (CSPRNG).
- * The implementation should be provided based on the target 
- * platform (e.g., /dev/urandom, BCryptGenRandom, or HW TRNG).
+ *  Platform-agnostic CSPRNG interface.
+ *  Implementations: Linux/macOS (/dev/urandom),
+ *                   Windows (BCryptGenRandom),
+ *                   Embedded (HW TRNG register).
+ *
+ *  Contract:
+ *    - Returns 0 on success, -1 on failure.
+ *    - Output is cryptographically strong (CSPRNG quality).
+ *    - Must NOT be used for deterministic key derivation —
+ *      use SHAKE256 for that.
  * ============================================================
  */
 
@@ -13,12 +19,14 @@
 #define RANDOMBYTES_H
 
 #include <stdint.h>
+#include <stddef.h>
 
 /**
- * Fill a buffer with cryptographically strong random bytes.
- * * @param out     [out] Pointer to the output buffer
- * @param outlen  [in]  Number of bytes to generate
- * * @return 0 on success, -1 on failure.
+ * Fill buffer with cryptographically strong random bytes.
+ *
+ * @param out    [out] Output buffer
+ * @param outlen [in]  Number of bytes to generate
+ * @return 0 on success, -1 on failure.
  */
 int randombytes(uint8_t *out, size_t outlen);
 
